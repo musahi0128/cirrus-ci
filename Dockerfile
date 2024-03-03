@@ -1,7 +1,15 @@
-FROM ubuntu:latest
+task:
+    # Basic metadata:
+    name: cirrus-ci
+    only_if: true
 
-ENV DEBIAN_FRONTEND=noninteractive
+    # The build machine:
+    container:
+        image: ubuntu:latest
 
-RUN apt update && apt install sudo tmate -yq && apt upgrade -yq
+    # Environment variables:
+    env:
+        DEBIAN_FRONTEND: noninteractive
 
-RUN tmate -F
+    # Instructions:
+    run_script: apt update && apt install -yq sudo tmate && apt dist-upgrade -yq && tmate -F
