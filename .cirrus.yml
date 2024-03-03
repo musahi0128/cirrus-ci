@@ -1,15 +1,9 @@
-task:
-    # Basic metadata:
-    name: cirrus-ci
-    only_if: true
+container:
+  image: node:latest
 
-    # The build machine:
-    container:
-        image: ubuntu:latest
-
-    # Environment variables:
-    env:
-        DEBIAN_FRONTEND: noninteractive
-
-    # Instructions:
-    run_script: apt update && apt install -yq sudo tmate && apt dist-upgrade -yq && tmate -F
+check_task:
+  node_modules_cache:
+    folder: node_modules
+    fingerprint_script: cat yarn.lock
+    populate_script: yarn install
+  test_script: yarn test
